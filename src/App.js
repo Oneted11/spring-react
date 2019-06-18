@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Trail } from "react-spring/renderprops";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    isLoading: true,
+    users: [],
+    error: null
+  };
+
+  fetchUsers() {
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => res.json())
+      .then(data => this.setState({ users: data, isLoading: false }))
+      .catch(error => this.setState({ error, isLoading: false }));
+  }
+  componentDidMount() {
+    this.fetchUsers();
+  }
+  render() {
+    const { isLoading, users, error } = this.state;
+    return (
+      <div>
+        <h1>Random User</h1>
+        {error ? <p>{error.message}</p> : null}
+        {!isLoading ? (
+          <Trail
+            items={users}
+            keys={user => user.id}
+            from={{
+              marginLeft: -20,
+              opacity: 0,
+              transform: "translate3d(0,-40px,0"
+            }}
+            to={{
+              marginLeft: 20,
+              opacity: 1,
+              transform: "translate3d(0,0px,0)"
+            }}
+          >
+            {user => props => (
+              <div style={props} className="box">
+                {user.username}
+              </div>
+            )}
+          </Trail>
+        ) : (
+          <h3>Loading...</h3>
+        )}
+      </div>
+    );
+  }
 }
-
 export default App;
