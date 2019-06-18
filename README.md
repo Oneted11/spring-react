@@ -1,3 +1,8 @@
+# personal comments 
+
+The content-slide.js file is basically a renamed App.js, so to play with that rename it to App.js and rename App.js to whatever makes you smile. I recommend ball-fondler.js
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
