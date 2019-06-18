@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     const { isLoading, users, error } = this.state;
     return (
-      <div>
+      <React.Fragment>
         <h1>Random User</h1>
         {error ? <p>{error.message}</p> : null}
         {!isLoading ? (
@@ -40,14 +40,14 @@ class App extends React.Component {
           >
             {user => props => (
               <div style={props} className="box">
-                {user.username}
+               <h1> {user.username}</h1>
               </div>
             )}
           </Trail>
         ) : (
           <h3>Loading...</h3>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
